@@ -1,9 +1,10 @@
 
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
+
+const { MongoClient, ObjectID } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
+
 
 MongoClient.connect(connectionURL, { useUnifiedTopology: true }, (error, client) => {
     if (error) {
@@ -12,50 +13,37 @@ MongoClient.connect(connectionURL, { useUnifiedTopology: true }, (error, client)
 
     const db = client.db(databaseName)
 
-    // db.collection('users').insertOne({
-    //     name: 'Fabián',
-    //     age: 25
-    // }, (error, result) => {
+    // db.collection('users').findOne({_id: new ObjectID("5fb416bde793283b4507682f")}, (error,user) => {
     //     if (error) {
-    //         return console.log(' Unable to insert user')
+    //         return console.log('Unable to fetch')
     //     }
 
-    //     console.log(result.ops)
-    //})
-
-    // db.collection('users').insertMany([
-    //     {
-    //         name: 'Jen',
-    //         age: 28
-    //     }, {
-    //         name: 'Gustavoql',
-    //         age: 25
-    //     }
-    // ], (error, result) => {
-    //     if (error) {
-    //         return console.log('Unable to insert documents!')
-    //     }
-
-    //     console.log(result.ops)
+    //     console.log(user)
     // })
 
-    db.collection('tasks').insertMany([
-        {
-            description: 'Clean my bedroom',
-            completed: false
-        }, {
-            description: 'Learn new programming lenguages',
-            completed: true
-        }, {
-            description: 'Talk to friends more',
-            completed: true
-        }
+    // db.collection('users').find({ age: 25 }).toArray((error, users) => {
+    //     if (error) {
+    //         return console.log('Unable to fetch')
+    //     }
 
-    ], (error, result) => {
+    //     console.log(users)
+    // })
+
+    db.collection('tasks').findOne({ _id: new ObjectID("5fb406bea1bac569b92a8fdd") }, (error, task) => {
         if (error) {
-            return console.log('Unable to insert documents!')
+            return console.log('Unable to fetch task')
         }
 
-        console.log(result.ops)
+        console.log(task)
     })
+
+    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
+        if (error) {
+            return console.log('Unable to fetch')
+        }
+
+        console.log(tasks)
+    })
+
+    
 }) 
