@@ -49,6 +49,8 @@ const userSchema = new mongoose.Schema({
             required: true
         } 
     }]
+}, {
+    timestamps: true
 })
 
 //relación usuarios con tareas
@@ -58,7 +60,7 @@ userSchema.virtual('tasks', {
     foreignField: 'owner'
 })
 
-//Hides private data passed to res.send
+//Hides private data passed to res.send taking advantage of the stingify method that uses out of sight
 userSchema.methods.toJSON = function () {
     const user = this
     const userObject = user.toObject()
