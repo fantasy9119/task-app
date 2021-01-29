@@ -3,9 +3,26 @@ const sendgridAPIKey = 'SG.qSmGlWhXS1SgrWjJQfSNag.4VXIG8EwAytc_x9IfN4aoF8qeELz5D
 
 sgMail.setApiKey(sendgridAPIKey)
 
-sgMail.send({
-    to: 'fabianmubusiness@gmail.com',
-    from: 'fabianmubusiness@gmail.com',
-    subject: 'This is my first creation!',
-    text: 'I hope this one actually gets you'
-})
+const sendWelcomeEmail = (email, name) => {
+    sgMail.send({
+        to: email,
+        from: 'fabianmubusiness@gmail.com',
+        subject: 'Bienvenido hermani3!',
+        text: `Bienvenido a la app compare, ${name}. Hazme saber como te funca la weaita.`
+    })
+}
+
+const sendCancelationEmail = (email, name) => {
+    sgMail.send({
+        to: email,
+        from: 'fabianmubusiness@gmail.com',
+        subject: 'Lamento que te vayas amigue',
+        text: `Nos vemos compañere, ${name}. Hazme saber que wea hicimos mal.`
+    })
+    
+}
+
+module.exports = {
+    sendWelcomeEmail,
+    sendCancelationEmail
+}
